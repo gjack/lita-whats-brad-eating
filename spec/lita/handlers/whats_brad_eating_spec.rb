@@ -21,4 +21,13 @@ describe Lita::Handlers::WhatsBradEating, lita_handler: true do
       expect(body.include?('caption')).to be_truthy
     end
   end
+
+  describe ':parsed_response' do
+    it 'should return a nokogiri object with a :css method we can search on' do
+      expect(subject.parsed_response).to respond_to(:css)
+
+      images = subject.parsed_response.css('img')
+      expect(images.any?).to be_truthy
+    end
+  end
 end

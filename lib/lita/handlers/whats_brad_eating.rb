@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module Lita
   module Handlers
     class WhatsBradEating < Handler
@@ -17,6 +19,10 @@ module Lita
 
       def response
         @_response ||= http.get(BLOG_URL)
+      end
+
+      def parsed_response
+        Nokogiri.parse(response.body)
       end
 
       Lita.register_handler(self)
