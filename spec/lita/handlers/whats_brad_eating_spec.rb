@@ -30,4 +30,10 @@ describe Lita::Handlers::WhatsBradEating, lita_handler: true do
       expect(images.any?).to be_truthy
     end
   end
+
+  describe ':first_post' do
+    it 'finds exactly one node' do
+      expect(subject.first_post.count).to eq(1)
+    end
+  end
 end

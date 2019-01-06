@@ -25,6 +25,10 @@ module Lita
         Nokogiri.parse(response.body)
       end
 
+      def first_post
+        parsed_response.css('section.post').first
+      end
+
       Lita.register_handler(self)
     end
   end
