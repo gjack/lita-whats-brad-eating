@@ -14,7 +14,10 @@ module Lita
       }
 
       def brad_eats(response)
-        response.reply 'Actual results coming soon!'
+        caption_text = caption.gsub(/\n.*/, '')
+        image_url = image.get_attribute('src')
+        msg = "#{caption_text} >> #{image_url}"
+        response.reply msg
       end
 
       def response
@@ -27,6 +30,14 @@ module Lita
 
       def first_post
         parsed_response.css('section.post').first
+      end
+
+      def image
+        first_post.css('.photo-wrapper img').first
+      end
+
+      def caption
+        image.get_attribute('alt')
       end
 
       Lita.register_handler(self)

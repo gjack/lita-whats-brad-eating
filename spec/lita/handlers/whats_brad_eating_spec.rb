@@ -36,4 +36,19 @@ describe Lita::Handlers::WhatsBradEating, lita_handler: true do
       expect(subject.first_post.count).to eq(1)
     end
   end
+
+  describe ':image' do
+    it 'finds at least one node' do
+      attributes = subject.image.attributes
+      expect(attributes.fetch('src').value).to include('https')
+      expect(attributes.key?('alt')).to be_truthy
+    end
+  end
+
+  describe ':brad_eats' do
+    it 'responds with a caption and an image url' do
+      send_message "Lita what's brad eating"
+      expect(replies.last).to match(/\w+ >> https/i)
+    end
+  end
 end
